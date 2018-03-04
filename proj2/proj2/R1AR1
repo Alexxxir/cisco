@@ -1,0 +1,14 @@
+Router>en
+Router#conf t
+Router(config)#int se2/0
+Router(config-if)#ip ad 192.168.1.2 255.255.255.0
+Router(config-if)#no shutdown 
+Router(config-if)#int se3/0
+Router(config-if)#ip ad 192.168.2.1 255.255.255.0
+Router(config-if)#no shutdown 
+Router(config-if)#exit
+Router(config)#route ospf 1
+Router(config-router)#router-id 3.3.3.3
+Router(config-router)#network 192.168.0.0 0.0.255.255 area 1
+Router(config-router)#exit
+Router(config)#

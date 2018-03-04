@@ -1,0 +1,29 @@
+Router>en
+Router#conf t
+Router(config)#int fa0/0
+Router(config-if)#ip ad 10.2.2.2 255.255.255.0
+Router(config-if)#no shutdown 
+Router(config-if)#int se2/0
+Router(config-if)#ip ad 10.3.3.1 255.255.255.0
+Router(config-if)#no shutdown 
+Router(config)#int loopback0
+Router(config-if)#int loopback 0
+Router(config-if)#ip ad 10.13.0.1 255.255.255.255
+Router(config-if)#int loopback1
+Router(config-if)#ip ad 10.13.1.1 255.255.255.255
+Router(config-if)#int loopback2
+Router(config-if)#ip ad 10.13.2.1 255.255.255.255
+Router(config-if)#int loopback3
+Router(config-if)#ip ad 10.13.3.1 255.255.255.255
+Router(config-if)#exit
+Router(config)#router ospf 1
+Router(config-router)#router-id 2.2.2.2
+Router(config-router)#network 10.2.2.0 0.0.0.255 area 0
+Router(config-router)#network 10.13.0.0 0.0.255.255 area 0
+Router(config)#router rip
+Router(config-router)#version 2
+Router(config-router)#network 10.0.0.0
+Router(config-router)#exit
+Router(config)#router ospf 1
+Router(config-router)#redistribute rip subnets 
+Router(config-router)#

@@ -1,0 +1,17 @@
+Router>en
+Router#conf t
+Router(config)#int loopback0
+Router(config-if)#ip ad 172.20.0.1 255.255.255.0
+Router(config-if)#int loopback1
+Router(config-if)#ip ad 172.20.1.1 255.255.255.0
+Router(config-if)#int loopback2
+Router(config-if)#ip ad 172.20.2.1 255.255.255.0
+Router(config-if)#exit
+Router(config)#router rip 
+Router(config-router)#version 2
+Router(config-router)#network 172.20.0.0
+Router(config-router)#network 172.20.1.0
+Router(config-router)#network 172.20.2.0
+Router(config-router)#int se2/0
+Router(config-if)#ip ad 10.3.3.2 255.255.255.0
+Router(config-if)#no shutdown 
