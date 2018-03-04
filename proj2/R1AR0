@@ -1,0 +1,170 @@
+Router>en
+Router#conf t
+Router(config)#int fa0/0
+Router(config-if)#ip ad 10.2.2.1 255.255.255.0
+Router(config-if)#no shutdown 
+Router(config-if)#int se2/0
+Router(config-if)#ip ad 10.1.1.1 255.255.255.0
+Router(config-if)#no shutdown 
+Router(config)#router ospf 1
+Router(config-router)#router-id 1.1.1.1
+Router(config-router)#network 10.1.1.0 0.0.0.255 area 0
+Router(config-router)#network 10.2.2.0 0.0.0.255 area 0
+Router(config-router)#do show ip route
+Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 6 subnets, 2 masks
+C       10.1.1.0/24 is directly connected, Serial2/0
+C       10.2.2.0/24 is directly connected, FastEthernet0/0
+O       10.13.0.1/32 [110/2] via 10.2.2.2, 00:02:49, FastEthernet0/0
+O       10.13.1.1/32 [110/2] via 10.2.2.2, 00:02:49, FastEthernet0/0
+O       10.13.2.1/32 [110/2] via 10.2.2.2, 00:02:49, FastEthernet0/0
+O       10.13.3.1/32 [110/2] via 10.2.2.2, 00:02:49, FastEthernet0/0
+
+Router(config-router)#do show ip ospf database router
+
+            OSPF Router with ID (1.1.1.1) (Process ID 1)
+
+                Router Link States (Area 0)
+
+  LS age: 240
+  Options: (No TOS-capability, DC)
+  LS Type: Router Links
+  Link State ID: 2.2.2.2
+  Advertising Router: 2.2.2.2
+  LS Seq Number: 80000006
+  Checksum: 0x2551
+  Length: 84
+  Number of Links: 5
+
+    Link connected to: a Transit Network
+     (Link ID) Designated Router address: 10.2.2.1
+     (Link Data) Router Interface address: 10.2.2.2
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 1
+
+    Link connected to: a Stub Network
+     (Link ID) Network/subnet number: 10.13.0.1
+     (Link Data) Network Mask: 255.255.255.255
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 1
+
+    Link connected to: a Stub Network
+     (Link ID) Network/subnet number: 10.13.1.1
+     (Link Data) Network Mask: 255.255.255.255
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 1
+
+    Link connected to: a Stub Network
+     (Link ID) Network/subnet number: 10.13.2.1
+     (Link Data) Network Mask: 255.255.255.255
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 1
+
+    Link connected to: a Stub Network
+     (Link ID) Network/subnet number: 10.13.3.1
+     (Link Data) Network Mask: 255.255.255.255
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 1
+
+  LS age: 123
+  Options: (No TOS-capability, DC)
+  LS Type: Router Links
+  Link State ID: 1.1.1.1
+  Advertising Router: 1.1.1.1
+  LS Seq Number: 80000004
+  Checksum: 0x313d
+  Length: 60
+  Number of Links: 3
+
+    Link connected to: another Router (point-to-point)
+     (Link ID) Neighboring Router ID: 1.1.2.2
+     (Link Data) Router Interface address: 10.1.1.1
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 64
+
+    Link connected to: a Stub Network
+     (Link ID) Network/subnet number: 10.1.1.0
+     (Link Data) Network Mask: 255.255.255.0
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 64
+
+    Link connected to: a Transit Network
+     (Link ID) Designated Router address: 10.2.2.1
+     (Link Data) Router Interface address: 10.2.2.1
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 1
+
+  LS age: 123
+  Options: (No TOS-capability, DC)
+  LS Type: Router Links
+  Link State ID: 1.1.2.2
+  Advertising Router: 1.1.2.2
+  LS Seq Number: 80000002
+  Checksum: 0x8318
+  Length: 48
+  Number of Links: 2
+
+    Link connected to: another Router (point-to-point)
+     (Link ID) Neighboring Router ID: 1.1.1.1
+     (Link Data) Router Interface address: 10.1.1.2
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 64
+
+    Link connected to: a Stub Network
+     (Link ID) Network/subnet number: 10.1.1.0
+     (Link Data) Network Mask: 255.255.255.0
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 64
+
+Router(config-router)#do show ip ospf database network
+
+            OSPF Router with ID (1.1.1.1) (Process ID 1)
+
+                Net Link States (Area 0)
+
+  Routing Bit Set on this LSA
+  LS age: 321
+  Options: (No TOS-capability, DC)
+  LS Type: Network Links
+  Link State ID: 10.2.2.1  (address of Designated Router)
+  Advertising Router: 1.1.1.1
+  LS Seq Number: 80000001
+  Checksum: 0xd3d8
+  Length: 32
+  Network Mask: /24
+        Attached Router: 2.2.2.2
+        Attached Router: 1.1.1.1
+Router(config-router)#
+
+Router#show ip route 
+Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 7 subnets, 2 masks
+C       10.1.1.0/24 is directly connected, Serial2/0
+C       10.2.2.0/24 is directly connected, FastEthernet0/0
+O E2    10.3.3.0/24 [110/20] via 10.2.2.2, 00:22:49, FastEthernet0/0
+O       10.13.0.1/32 [110/2] via 10.2.2.2, 01:07:12, FastEthernet0/0
+O       10.13.1.1/32 [110/2] via 10.2.2.2, 01:07:12, FastEthernet0/0
+O       10.13.2.1/32 [110/2] via 10.2.2.2, 01:07:12, FastEthernet0/0
+O       10.13.3.1/32 [110/2] via 10.2.2.2, 01:07:12, FastEthernet0/0
+O E2 172.20.0.0/16 [110/20] via 10.2.2.2, 00:09:10, FastEthernet0/0
+O    192.168.1.0/24 [110/128] via 10.1.1.2, 00:55:35, Serial2/0
+
+Router#
