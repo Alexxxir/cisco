@@ -9,16 +9,5 @@ Router(config)#ip route 3.0.0.0 255.0.0.0 null0
 Router(config)#route ospf 1
 Router(config-router)#router-id 4.4.4.4
 Router(config-router)#network 192.168.2.0 0.0.0.255 area 1
-Router(config-router)#exit
-Router(config)#
-
-
-
-
-
-
-
-
-Router con0 is now available
-
+Router(config-router)#redistribute static subnets 
 
